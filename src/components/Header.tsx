@@ -1,4 +1,3 @@
-/* components/Header.tsx */
 import React from 'react';
 import { Todo } from '../types/Todo';
 
@@ -9,7 +8,6 @@ interface HeaderProps {
   handleSubmit: (event: React.FormEvent) => void;
   isSubmitting: boolean;
   todos: Todo[];
-  /** Додано новий проп для перемикання всіх завдань */
   handleToggleAll: () => void;
 }
 
@@ -20,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({
   handleSubmit,
   isSubmitting,
   todos,
-  handleToggleAll, // Деструктуруємо новий проп
+  handleToggleAll,
 }) => {
   // Перевіряємо, чи всі завдання завершені
   const areAllCompleted =
@@ -28,13 +26,12 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="todoapp__header">
-      {/* Умовне рендерування кнопки Toggle All */}
       {todos.length > 0 && (
         <button
           type="button"
           className={`todoapp__toggle-all ${areAllCompleted ? 'active' : ''}`}
           data-cy="ToggleAllButton"
-          onClick={handleToggleAll} // Додаємо обробник кліку
+          onClick={handleToggleAll}
         ></button>
       )}
 

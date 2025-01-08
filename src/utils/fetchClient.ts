@@ -1,4 +1,3 @@
-// src/utils/fetchClient.ts
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const BASE_URL = 'https://mate.academy/students-api';
 

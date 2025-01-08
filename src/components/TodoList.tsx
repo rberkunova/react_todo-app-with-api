@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* components/TodoList.tsx */
 import React from 'react';
 import { Todo } from '../types/Todo';
 import TodoItem from './TodoItem';

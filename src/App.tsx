@@ -1,4 +1,3 @@
-/* App.tsx */
 import React, { useState, useEffect, useRef } from 'react';
 import { UserWarning } from './UserWarning';
 import {
@@ -39,7 +38,6 @@ export const App: React.FC = () => {
         setTodos(todosFromApi);
       } catch (err) {
         setError('Unable to load todos');
-        // !!! ВАЖЛИВО: приберемо throw err, щоб Cypress не бачив «необроблену» помилку
       } finally {
         setLoading(false);
       }
@@ -78,8 +76,6 @@ export const App: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    // ВАЖЛИВО: миттєво ховаємо попередню помилку,
-    // щоб виконати пункт тесту «should immediately hide an error message on new request»
     setError(null);
 
     if (!newTodoTitle.trim()) {
@@ -120,11 +116,9 @@ export const App: React.FC = () => {
       setNewTodoTitle('');
     } catch (err) {
       setError('Unable to add a todo');
-      // Якщо треба, приберіть цей фільтр, щоб тимчасовий todo залишався
       setTodos(prevTodos =>
         prevTodos.filter(todo => todo.id !== newTempTodo.id),
       );
-      // !!! Прибрали throw err
     } finally {
       setTempTodo(null);
       setIsSubmitting(false);
@@ -159,7 +153,6 @@ export const App: React.FC = () => {
       setTodos(prevTodos => prevTodos.filter(todo => todo.id !== todoId));
     } catch (err) {
       setError('Unable to delete a todo');
-      // !!! Прибрали throw err
     } finally {
       setTempTodo(null);
       if (inputRef.current) {
@@ -200,7 +193,6 @@ export const App: React.FC = () => {
       );
     } catch (err) {
       setError('Unable to update a todo');
-      // !!! Прибрали throw err
     } finally {
       setTempTodo(null);
     }

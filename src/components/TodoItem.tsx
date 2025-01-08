@@ -21,10 +21,10 @@ const TodoItem: React.FC<TodoItemProps> = ({
   handleToggle,
   handleUpdateTitle,
 }) => {
-  const isLoading = tempTodo?.id === todo.id; // якщо саме це todo зараз "у роботі"
+  const isLoading = tempTodo?.id === todo.id;
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(todo.title);
-  const [isUpdating, setIsUpdating] = useState(false); // Стан для контролю лоадера
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const editFieldRef = useRef<HTMLInputElement>(null);
 
@@ -49,14 +49,14 @@ const TodoItem: React.FC<TodoItemProps> = ({
     // Видалення, якщо заголовок порожній
     if (!trimmedTitle) {
       try {
-        setIsUpdating(true); // Показати лоадер
+        setIsUpdating(true);
         await handleDelete(todo.id, () => {
-          setIsEditing(false); // Успішне завершення
+          setIsEditing(false);
         });
       } catch {
         // Помилка, залишаємо режим редагування
       } finally {
-        setIsUpdating(false); // Приховати лоадер
+        setIsUpdating(false);
       }
 
       return;
@@ -64,14 +64,14 @@ const TodoItem: React.FC<TodoItemProps> = ({
 
     // Оновлення назви
     try {
-      setIsUpdating(true); // Показати лоадер
+      setIsUpdating(true);
       await handleUpdateTitle(todo.id, trimmedTitle, () => {
-        setIsEditing(false); // Успішне завершення
+        setIsEditing(false);
       });
     } catch {
       // Помилка, залишаємо режим редагування
     } finally {
-      setIsUpdating(false); // Приховати лоадер
+      setIsUpdating(false);
     }
   };
 
@@ -97,10 +97,8 @@ const TodoItem: React.FC<TodoItemProps> = ({
     await saveTitle();
   };
 
-  // Рендер
   return (
     <div className={`todo ${todo.completed ? 'completed' : ''}`} data-cy="Todo">
-      {/* Чекбокс для перемикання completed */}
       <label className="todo__status-label" htmlFor={`todo-status-${todo.id}`}>
         <input
           id={`todo-status-${todo.id}`}
@@ -113,7 +111,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
         />
       </label>
 
-      {/* Якщо в режимі редагування — рендеримо інпут, інакше — span */}
       {isEditing ? (
         <input
           ref={editFieldRef}
@@ -136,7 +133,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
         </span>
       )}
 
-      {/* Кнопка видалення (схована під час редагування) */}
       {!isEditing && (
         <button
           type="button"
@@ -153,7 +149,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
         </button>
       )}
 
-      {/* Loader під час оновлення/видалення */}
       <div
         data-cy="TodoLoader"
         className={`modal overlay ${
